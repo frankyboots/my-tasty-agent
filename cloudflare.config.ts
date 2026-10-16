@@ -5,7 +5,7 @@ import { bindings, defineConfig, exports } from 'cf/config'
 // Optional: TASTYTRADE_ACCOUNT_ID (required when the grant exposes several accounts).
 export default defineConfig({
   worker: {
-    name: 'tasty-agent',
+    name: 'my-tasty-agent',
     compatibilityDate: '2026-09-01',
     entrypoint: './src/worker/index.ts',
     observability: { enabled: true },
@@ -14,7 +14,7 @@ export default defineConfig({
     },
     env: {
       // One Durable Object instance holds the shared two-requests-per-second broker budget.
-      BROKER_GATE: bindings.durableObject({ worker: 'tasty-agent', exportName: 'BrokerGate' }),
+      BROKER_GATE: bindings.durableObject({ worker: 'my-tasty-agent', exportName: 'BrokerGate' }),
     },
   },
 })

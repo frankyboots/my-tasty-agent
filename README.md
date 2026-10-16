@@ -1,9 +1,8 @@
-# tasty-agent: A TastyTrade MCP Server
-[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/ferdousbhai/tasty-agent)](https://archestra.ai/mcp-catalog/ferdousbhai__tasty-agent)
+# my-tasty-agent: A TastyTrade MCP Server
 
 A Model Context Protocol server for TastyTrade brokerage accounts. Enables LLMs to monitor portfolios, analyze positions, and execute trades. Features automated IV analysis prompts and compact tool output.
 
-Written in TypeScript against the Tastytrade REST API and DXLink directly (no SDK). The same code runs locally over stdio (`npx tasty-agent`) or as a remote MCP server on Cloudflare Workers.
+Written in TypeScript against the Tastytrade REST API and DXLink directly (no SDK). The same code runs locally over stdio (`npx my-tasty-agent`) or as a remote MCP server on Cloudflare Workers.
 
 > **v7 is a rewrite.** The Python package (`uvx tasty-agent`, 6.x) is replaced by the npm package, and the Modal deployment by Cloudflare Workers. Tool names are unchanged. What differs from 6.x:
 > - `get_quotes` no longer takes `timeout`: quotes come from REST market data, so they also answer outside market hours.
@@ -79,7 +78,7 @@ Requires Node.js 22+. Add to your MCP client configuration (e.g., `claude_deskto
   "mcpServers": {
     "tastytrade": {
       "command": "npx",
-      "args": ["-y", "tasty-agent@7"],
+      "args": ["-y", "my-tasty-agent@7"],
       "env": {
         "TASTYTRADE_CLIENT_SECRET": "your_client_secret",
         "TASTYTRADE_REFRESH_TOKEN": "your_refresh_token"
@@ -101,16 +100,16 @@ npx cf auth login
 npm run deploy                                         # builds and deploys the Worker
 # with the values exported in your shell; MCP_BEARER_TOKEN is e.g. the output of: openssl rand -hex 32
 for name in TASTYTRADE_CLIENT_SECRET TASTYTRADE_REFRESH_TOKEN MCP_BEARER_TOKEN; do
-  npx cf workers secrets update "$name" --worker tasty-agent --text "${!name}"
+  npx cf workers secrets update "$name" --worker my-tasty-agent --text "${!name}"
 done
 # only for multi-account grants:
-npx cf workers secrets update TASTYTRADE_ACCOUNT_ID --worker tasty-agent --text "$TASTYTRADE_ACCOUNT_ID"
+npx cf workers secrets update TASTYTRADE_ACCOUNT_ID --worker my-tasty-agent --text "$TASTYTRADE_ACCOUNT_ID"
 ```
 
-The server is then at `https://tasty-agent.<your-subdomain>.workers.dev/mcp` (streamable HTTP). Connect with the bearer token, for example in Claude Code:
+The server is then at `https://my-tasty-agent.<your-subdomain>.workers.dev/mcp` (streamable HTTP). Connect with the bearer token, for example in Claude Code:
 
 ```bash
-claude mcp add --transport http tastytrade https://tasty-agent.<your-subdomain>.workers.dev/mcp \
+claude mcp add --transport http tastytrade https://my-tasty-agent.<your-subdomain>.workers.dev/mcp \
   --header "Authorization: Bearer $MCP_BEARER_TOKEN"
 ```
 
@@ -123,10 +122,10 @@ The Worker serves only your own account: anyone holding the bearer token can tra
 The REST client, rate gate, tick-size rules, and DXLink feed have no MCP dependency and are exported separately:
 
 ```ts
-import { createTastytradeClient, IntervalGate, collectFeedEvents } from 'tasty-agent/tastytrade'
+import { createTastytradeClient, IntervalGate, collectFeedEvents } from 'my-tasty-agent/tastytrade'
 ```
 
-`createTastytradeClient` authenticates with either an OAuth grant it refreshes itself (`clientSecret` / `refreshToken`, each a string or an async getter read only when a token is minted) or a caller-minted `accessToken`, which is never refreshed or retried. Every request, including token refreshes, goes through the `gate` you pass. `request(path, { raw: true })` returns the whole response body (with `pagination`), and `signal` aborts a request early. A mutation that fails without a definite answer raises `TastytradeOutcomeUnknownError`. spicytrade uses this client for its own transport.
+`createTastytradeClient` authenticates with either an OAuth grant it refreshes itself (`clientSecret` / `refreshToken`, each a string or an async getter read only when a token is minted) or a caller-minted `accessToken`, which is never refreshed or retried. Every request, including token refreshes, goes through the `gate` you pass. `request(path, { raw: true })` returns the whole response body (with `pagination`), and `signal` aborts a request early. A mutation that fails without a definite answer raises `TastytradeOutcomeUnknownError`.
 
 ## Examples
 

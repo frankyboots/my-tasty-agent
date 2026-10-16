@@ -31,7 +31,7 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
     if (url.pathname !== MCP_PATH) {
-      return new Response(`tasty-agent ${SERVER_VERSION}: MCP endpoint is ${MCP_PATH}\n`, { status: 404 })
+      return new Response(`my-tasty-agent ${SERVER_VERSION}: MCP endpoint is ${MCP_PATH}\n`, { status: 404 })
     }
     if (!env.MCP_BEARER_TOKEN || !env.TASTYTRADE_CLIENT_SECRET || !env.TASTYTRADE_REFRESH_TOKEN) {
       return new Response(

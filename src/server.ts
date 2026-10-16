@@ -140,7 +140,7 @@ const IV_REPLY =
 
 /** Builds the MCP surface over one broker. */
 export function createServer(broker: Broker): McpServer {
-  const server = new McpServer({ name: 'tasty-agent', version: SERVER_VERSION })
+  const server = new McpServer({ name: 'my-tasty-agent', version: SERVER_VERSION })
   for (const [name, definition] of Object.entries(TOOLS) as [string, Tool<z.ZodType>][]) {
     server.registerTool(
       name,

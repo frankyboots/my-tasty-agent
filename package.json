@@ -1,12 +1,12 @@
 {
-  "name": "tasty-agent",
+  "name": "my-tasty-agent",
   "version": "7.1.0",
   "description": "A Model Context Protocol server for Tastytrade brokerage accounts",
   "license": "MIT",
-  "author": "Ferdous <ferdous@hey.com>",
+  "author": "FrankyBoots",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ferdousbhai/tasty-agent.git"
+    "url": "git+https://github.com/frankyboots/my-tasty-agent.git"
   },
   "keywords": [
     "tastytrade",
@@ -20,7 +20,7 @@
     "node": ">=22"
   },
   "bin": {
-    "tasty-agent": "dist/stdio.js"
+    "my-tasty-agent": "dist/stdio.js"
   },
   "exports": {
     ".": "./dist/server.js",

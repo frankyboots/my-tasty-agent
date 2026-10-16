@@ -108,7 +108,7 @@ export function createTastytradeClient(options: TastytradeClientOptions): Tastyt
   const apiBase = (options.apiBase ?? TASTYTRADE_API_BASE).replace(/\/+$/, '')
   const gate = options.gate ?? OPEN_GATE
   const tokens = options.tokenStore ?? memoryTokenStore()
-  const userAgent = options.userAgent ?? 'tasty-agent'
+  const userAgent = options.userAgent ?? 'my-tasty-agent'
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS
   const doFetch = options.fetch ?? ((input, init) => fetch(input, init))
   const now = options.now ?? Date.now

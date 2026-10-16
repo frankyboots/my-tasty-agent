@@ -1,12 +1,11 @@
 {
-  "name": "tasty",
+  "name": "my-tasty-agent",
   "version": "7.1.0",
   "description": "TastyTrade brokerage integration for account management and trading",
   "author": {
-    "name": "Ferdous",
-    "email": "ferdous@hey.com"
+    "name": "FrankyBoots"
   },
-  "repository": "https://github.com/ferdousbhai/tasty-agent",
+  "repository": "https://github.com/frankyboots/my-tasty-agent",
   "license": "MIT",
   "keywords": [
     "tastytrade",
@@ -17,11 +16,11 @@
   "commands": "./commands/",
   "skills": "./skills/",
   "mcpServers": {
-    "tasty-agent": {
+    "my-tasty-agent": {
       "command": "npx",
       "args": [
         "-y",
-        "tasty-agent@7"
+        "my-tasty-agent@7"
       ]
     }
   }

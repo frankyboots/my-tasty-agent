@@ -79,7 +79,7 @@ type BrokerConfig = ClientConfig & Omit<BrokerOptions, 'client'>
 
 /** The production wiring shared by the stdio server, the Worker, and the live integration test. */
 export function createBroker(config: BrokerConfig): Broker {
-  const client = createTastytradeClient({ ...config, userAgent: `tasty-agent/${SERVER_VERSION}` })
+  const client = createTastytradeClient({ ...config, userAgent: `my-tasty-agent/${SERVER_VERSION}` })
   return new Broker({ client, accountId: config.accountId, chains: config.chains, memo: config.memo })
 }
 

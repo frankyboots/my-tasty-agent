@@ -5,7 +5,7 @@ description: "Manage TastyTrade brokerage accounts — monitor portfolios, analy
 
 # TastyTrade Trading
 
-Interact with TastyTrade brokerage accounts via the tasty-agent MCP server. Covers portfolio monitoring, market data, options analysis, and order management.
+Interact with TastyTrade brokerage accounts via the my-tasty-agent MCP server. Covers portfolio monitoring, market data, options analysis, and order management.
 
 ## Workflow
 

@@ -1,10 +1,10 @@
-# tasty-agent
+# my-tasty-agent
 
-MCP server for Tastytrade account data, market data, watchlists, and order workflows. TypeScript, calling the Tastytrade REST API and DXLink directly; runs over stdio (`npx tasty-agent`) and on Cloudflare Workers.
+MCP server for Tastytrade account data, market data, watchlists, and order workflows. TypeScript, calling the Tastytrade REST API and DXLink directly; runs over stdio (`npx my-tasty-agent`) and on Cloudflare Workers.
 
 ## Code index
 
-- `src/tastytrade/` — standalone Tastytrade client (no MCP imports; exported as `tasty-agent/tastytrade` for reuse, e.g. by spicytrade): OAuth token refresh, request gate, API versions, errors, tick-size schedules, DXLink feed
+- `src/tastytrade/` — standalone Tastytrade client (no MCP imports; exported as `my-tasty-agent/tastytrade` for reuse): OAuth token refresh, request gate, API versions, errors, tick-size schedules, DXLink feed
 - `src/server.ts` — MCP tool, prompt, and schema registration
 - `src/instruments.ts` — instrument specs, resolution, nested option-chain cache
 - `src/pricing.ts` — quote-derived signed mid pricing, tick rounding, budget sizing
@@ -46,6 +46,15 @@ There is no GitHub CI. Cloudflare Workers Builds deploys the Worker on every pus
 To release the npm package, bump the version in `package.json`, `src/version.ts`, and `.claude-plugin/plugin.json` together, then run `npm publish --access public` locally (`prepublishOnly` checks, tests, and builds first) and push a `v<version>` tag.
 
 Credential-gated tests and live brokerage calls require explicit authorization.
+
+## Commit conventions
+
+Imperative plain-English one-line subjects. No conventional-commit prefixes or
+scopes (no `feat:`, `fix(scope):`), no ticket numbers. Disambiguating
+parentheticals are OK.
+
+Good: `Keep dry-run check on order replacements`, `Fix tick rounding for cent options`
+Bad: `feat(orders): add dry-run check`, `#42 fix dry-run`
 
 ## Cloudflare CLI
 
